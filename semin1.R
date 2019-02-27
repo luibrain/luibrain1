@@ -103,4 +103,4 @@ dim(DF_refridge)
 str(DF_refridge)
 
 # записываем в .csv
-write.csv(DF_refridge, file = 'Refridge_Ya.Market.csv', row.names = F)
+write.csv(DF_refridge, file = '../Refridge_Ya.Market.csv', row.names = F)
