@@ -11,7 +11,11 @@ Refridge_Ya.Market.csv - csv-файл получившегося.
 
 В качестве признаков были взяты:
 - название = ```Name```
-- описание = ```Description 1```, ```Description 2```, ```Description 3```, ```Description 4```, ```Description 5```
+- описание1 = ```Description 1``` - габариты
+- описание2 = ```Description 2``` - количество камер
+- описание3 = ```Description 3``` - класс
+- описание4 = ```Description 4``` - расположение морозильника
+- описание5 = ```Description 5``` - объем
 - рейтинг = ```Stars```
 - цена = ```Price```
 - количество отзывов = ```Counto```
