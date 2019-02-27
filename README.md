@@ -12,6 +12,7 @@ Refridge_Ya.Market.csv - csv-файл получившегося.
 В качестве признаков были взяты:
 - название = ```Name```
 - описание = ```Description 1```, ```Description 2```, ```Description 3```, ```Description 4```, ```Description 5```
+- рейтинг = ```Stars```
 - цена = ```Price```
 - количество отзывов = ```Counto```
 - количество предложений = ```Countp```
