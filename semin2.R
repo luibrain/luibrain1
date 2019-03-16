@@ -99,6 +99,7 @@ DT.import <- full_join(DT.import, DT.import3)
 res <- select(DT.import, Netweight.kg.median, country_factor,Year) %>%
   group_by(country_factor, Year)
 res1 <- na.omit(res)
+res1 <- data.table(res1)
 
 #фактор по 3 группам стран
 years <- as.factor(unique(res1$country_factor))
@@ -111,54 +112,33 @@ cls <- palette(rainbow(3))
 # КОРОБЧАТАЯ ДИАГРАММА
 # ящики с усами по месяцам
 png('Pic-01.png', width = 500, height = 500)
-par(mfrow=c(2,2))
-boxplot(DT.import1$Netweight.kg.median ~ as.factor(DT.import1$Year), data=DT.import1,
-        xlab = 'Год',
+boxplot(res1$Netweight.kg.median ~ as.factor(res1$country_factor) * as.factor(res1$Year),
+        xlab = 'Год и группа стран',
         ylab = 'Суммарные поставки',
-        main = 'пакет base USA',
-        col = cls[3]
-        
+        main = 'пакет base'
         )
 
-boxplot(DT.import2$Netweight.kg.median ~ as.factor(DT.import2$Year), data=DT.import2,
-        xlab = 'Год',
-        ylab = 'Суммарные поставки',
-        main = 'пакет base EU',
-        col = cls[1]
-        )
-
-boxplot(DT.import3$Netweight.kg.median ~ as.factor(DT.import3$Year), data=DT.import3,
-        xlab = 'Год',
-        ylab = 'Суммарные поставки',
-        main = 'пакет base ROTW',
-        col = cls[2]
-        )
 dev.off()
 
 # Пакет "lattice" ----
 # КОРОБКИ ПО ГРУППАМ
 png('Pic-02.png', width = 500, height = 500)
-bwplot(res1$Netweight.kg.median ~ as.factor(res1$Year) | res1$country_factor, data=res1,
-       xlab = 'Год',
-       ylab = 'Суммарные поставки',
+bwplot( ~ Netweight.kg.median | as.factor(Year) * as.factor(country_factor), data = res1,
+       xlab = 'Суммарные поставки',
        main = 'пакет lattice'
-       
        )
-
-'par.settings = list(box.umbrella = list(col = cls[as.factor(res1$country_factor)]), 
-                            box.dot = list(col = cls[as.factor(res1$country_factor)]), 
-                            box.rectangle = list(col = cls[as.factor(res1$country_factor)]) 
-       )'
 dev.off()
 
 # Пакет "ggplot2" ----
 
 # КОРОБКИ ПО ГРУППАМ (ЦВЕТ + ОСЬ)
 # всё, что зависит от значений данных, заносим в аргумент aes
+res1[, Группы_стран := factor(country_factor, levels = c('USA', 'EU', 'ROTW'),
+                                labels = c('США', 'Страны ЕС', 'Остальные страны'))]
 png('Pic-03.png', width = 500, height = 500)
 gp <- ggplot(data = res1, aes(x = as.factor(res1$Year),
-                                y = res1$Netweight.kg.median,
-                                color = res1$country_factor)
+                                y = Netweight.kg.median,
+                                color = Группы_стран)
              
              )
 gp <- gp + geom_boxplot()
