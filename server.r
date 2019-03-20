@@ -36,7 +36,7 @@ shinyServer(function(input, output) {
         DF <- DF[between(DF$Runtime, input$Runtime.range[1], input$Runtime.range[2])]
         
     output$gn.text4 <- renderText({
-      paste0('Отобранных фильм - ', nrow(DF)
+      paste0('Отобранных фильмов - ', nrow(DF)
              )
       })
 
