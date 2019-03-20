@@ -28,7 +28,6 @@ shinyServer(function(input, output) {
       paste0('Всего фильмов - ', nrow(df)
       )
     })
-    output$gn.text4 <- renderText({df(df$Runtime)})
     # строим гистограммы переменных
     output$gn.hist <- renderPlot({
         # сначала фильтруем данные
