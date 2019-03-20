@@ -1,5 +1,6 @@
 library('shiny')       # загрузка пакетов
 library('lattice')
+library('plyr')
 
 file.URL <- 'https://raw.githubusercontent.com/luibrain/luibrain1/laba3/Films-imdb2016.csv'
 download.file(file.URL, destfile = 'Films.csv')
@@ -23,6 +24,11 @@ shinyServer(function(input, output) {
              input$Runtime.range[1], ' по ', input$Runtime.range[2]
              )
     })
+    output$gn.text3 <- renderText({
+      paste0('Всего фильмов - ', nrow(df)
+      )
+    })
+    output$gn.text4 <- renderText({df(df$Runtime)})
     # строим гистограммы переменных
     output$gn.hist <- renderPlot({
         # сначала фильтруем данные
