@@ -34,6 +34,11 @@ shinyServer(function(input, output) {
         DF <- df[df$Genre == input$gn.to.plot, 1:8]
         DF <- DF[between(DF$Rating, input$Rating.range[1], input$Rating.range[2])]
         DF <- DF[between(DF$Runtime, input$Runtime.range[1], input$Runtime.range[2])]
+        
+    output$gn.text4 <- renderText({
+      paste0('Отобранных фильм - ', nrow(DF)
+             )
+      })
 
         # затем строим график
         histogram( ~ Gross_Earning_in_Mil, 

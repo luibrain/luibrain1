@@ -45,6 +45,7 @@ shinyUI(
             textOutput('gn.text1'),
             textOutput('gn.text2'),
             textOutput('gn.text3'),
+            textOutput('gn.text4'),
             # гистограммы переменных
             plotOutput('gn.hist')
             )
